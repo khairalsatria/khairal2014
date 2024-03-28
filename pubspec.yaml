@@ -38,6 +38,7 @@ dependencies:
   fluttertoast: ^8.2.4
   flutter_styled_toast: ^2.2.1
   intl: ^0.18.1
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:

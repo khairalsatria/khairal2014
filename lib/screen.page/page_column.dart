@@ -97,7 +97,7 @@ class PageListHorizontal extends StatelessWidget {
         height: 200,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: List.gen  erate(50, (index) {
+          children: List.generate(50, (index) {
             return Card(
               child: Center(child: Text('Horizontal ke : ${index}')),
             );
