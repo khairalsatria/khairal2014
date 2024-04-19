@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:khairal2014/lat_model/model_user.dart";
 import "package:khairal2014/lat_screen.page/lat_page_list_berita.dart";
-import "package:khairal2014/lat_screen.page/lat_page_list_user.dart";
+import "package:khairal2014/lat_screen.page/lat_page_pegawai.dart";
 import "package:khairal2014/lat_screen.page/lat_page_profile.dart";
 import "package:khairal2014/lat_screen.page/lat_page_register_api.dart";
 import "package:khairal2014/model/model_users.dart";
@@ -30,7 +30,7 @@ class _LatPageNavBottom extends State<LatPageNavBottom> with SingleTickerProvide
         controller: tabController,
         children: const [
           LatPageListBerita(),
-          PageListUser(),
+          PageListPegawai(),
           PageProfileUser()
         ],
       ),

@@ -59,11 +59,11 @@ class Datum {
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "nama": nama,
-    "nobp": nobp,
-    "nohp": nohp,
-    "email": email,
-    "tanggal_input": tanggalInput.toIso8601String(),
+  "id": id,
+  "nama": nama,
+  "nobp": nobp,
+  "nohp": nohp,
+  "email": email,
+  "tanggal_input": tanggalInput.toIso8601String(),
   };
 }
