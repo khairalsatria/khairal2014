@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:khairal2014/lat_model/model_pegawai.dart';
 import 'package:http/http.dart' as http;
+import 'package:khairal2014/lat_screen.page/lat_page_login_api.dart';
+import 'package:khairal2014/lat_screen.page/lat_update_pegawai.dart';
 import 'package:khairal2014/utils/lat_session_manager.dart';
 
 class PageListPegawai extends StatefulWidget {
@@ -54,7 +56,8 @@ class _PageListPegawaiState extends State<PageListPegawai> {
   }
 
   Future<void> deletePegawai(String id) async {
-    var url = Uri.parse("http://192.168.100.238/edukasi_server/deletePegawai.php?id=$id");
+    var url = Uri.parse(
+        "http://192.168.100.238/edukasi_server/deletePegawai.php?id=$id");
 
     try {
       var response = await http.delete(
@@ -104,11 +107,11 @@ class _PageListPegawaiState extends State<PageListPegawai> {
                   onPressed: () {
                     setState(() {
                       session.clearSession();
-                      // Navigator.pushAndRemoveUntil(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => PageLoginApiLatihan()),
-                      //         (route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LatPageLoginApi()),
+                              (route) => false);
                     });
                   },
                   icon: Icon(Icons.exit_to_app),
@@ -207,11 +210,14 @@ class _PageListPegawaiState extends State<PageListPegawai> {
                                     ),
                                   ),
                                 ],
-                                rows: filterPegawai(
-                                    snapshot.data!, searchController.text)
-                                    .map((pegawai) {
+                                rows: filteredPegawaiList!
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  Datum pegawai =
+                                      entry.value; // Deklarasi variabel pegawai
                                   return DataRow(
-                                    cells: <DataCell>[
+                                    cells: [
                                       DataCell(Text(pegawai.nama)),
                                       DataCell(Text(pegawai.nobp)),
                                       DataCell(Text(pegawai.email)),
@@ -230,50 +236,157 @@ class _PageListPegawaiState extends State<PageListPegawai> {
                                               onPressed: () {
                                                 showDialog(
                                                   context: context,
-                                                  builder: (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text('Konfirmasi'),
-                                                      content: Text('Anda yakin ingin menghapus pegawai ini?'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop(); // Tutup dialog
-                                                          },
-                                                          child: Text('Batal'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            // Panggil fungsi untuk menghapus pegawai
-                                                            deletePegawai(pegawai.id.toString()).then((_) {
-                                                              setState(() {
-                                                                // Refresh list setelah hapus
-                                                                pegawaiList!.removeWhere((element) => element.id == pegawai.id);
-                                                                filteredPegawaiList = pegawaiList;
-                                                              });
-                                                              Navigator.of(context).pop(); // Tutup dialog setelah hapus
-                                                            }).catchError((error) {
-                                                              // Handle jika terjadi error
-                                                              Navigator.of(context).pop(); // Tutup dialog jika gagal
-                                                            });
-                                                          },
-                                                          child: Text('Hapus'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
+                                                  builder: (context) => AlertDialog(
+                                                    title: Text('Hapus Data'),
+                                                    content: Text(
+                                                        'Apakah Anda yakin ingin menghapus data ini?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text('Batal'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          // Kirim request untuk menghapus data karyawan
+                                                          http.post(
+                                                            Uri.parse(
+                                                                'http://192.168.100.238/edukasi_server/deletePegawai.php'),
+                                                            body: {
+                                                              'id': entry.value.id
+                                                                  .toString()
+                                                            }, // Kirim ID karyawan yang akan dihapus
+                                                          ).then((response) {
+                                                            // Memeriksa respons dari server
+                                                            if (response
+                                                                .statusCode ==
+                                                                200) {
+                                                              var jsonResponse =
+                                                              json.decode(
+                                                                  response
+                                                                      .body);
+                                                              if (jsonResponse[
+                                                              'isSuccess'] ==
+                                                                  true) {
+                                                                // Jika penghapusan berhasil, hapus data dari daftar
+                                                                setState(() {
+                                                                  filteredPegawaiList
+                                                                      ?.removeAt(
+                                                                      entry
+                                                                          .key);
+                                                                });
+                                                              } else {
+                                                                // Jika penghapusan gagal, tampilkan pesan kesalahan
+                                                                showDialog(
+                                                                  context: context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return AlertDialog(
+                                                                      title: Text(
+                                                                          "Berhasil"),
+                                                                      content: Text(
+                                                                          "${jsonResponse['message']}"),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator
+                                                                                .pushAndRemoveUntil(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                  builder: (context) => PageListPegawai()),
+                                                                                  (route) =>
+                                                                              false,
+                                                                            );
+                                                                          },
+                                                                          child: Text(
+                                                                              "OK"),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                );
+                                                              }
+                                                            } else {
+                                                              // Jika respons server tidak berhasil, tampilkan pesan kesalahan umum
+                                                              showDialog(
+                                                                context: context,
+                                                                builder: (context) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        "Gagal"),
+                                                                    content: Text(
+                                                                        "Terjadi kesalahan saat mengirim data ke server"),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child: Text(
+                                                                            "OK"),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+                                                          }).catchError((error) {
+                                                            // Tangani kesalahan koneksi atau lainnya
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return AlertDialog(
+                                                                  title:
+                                                                  Text("Gagal"),
+                                                                  content: Text(
+                                                                      "Terjadi kesalahan: $error"),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child: Text(
+                                                                          "OK"),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            );
+                                                          });
+                                                          Navigator.of(context).pop(
+                                                              true); // Tutup dialog
+                                                        },
+                                                        child: Text('Ya'),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 );
                                               },
                                               icon: Icon(Icons.delete),
                                             ),
-
                                             IconButton(
                                               onPressed: () {
-                                                // Navigator.push(
-                                                //   context,
-                                                //   MaterialPageRoute(
-                                                //     builder: (context) => PageUpdatePegawai(pegawai),
-                                                //   ),
-                                                // );
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => PageUpdatePegawai(data : filteredPegawaiList![entry.key]),
+                                                  ),
+                                                ).then((updatedData) {
+                                                  if (updatedData != null) {
+                                                    setState(() {
+                                                      int dataIndex = filteredPegawaiList!.indexWhere((pegawai) => pegawai.id == updatedData.id);
+                                                      if (dataIndex != -1) {
+                                                        filteredPegawaiList![dataIndex] = updatedData;
+                                                      }
+                                                    });
+                                                  }
+                                                });
                                               },
                                               icon: Icon(Icons.edit),
                                             ),
