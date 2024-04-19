@@ -39,6 +39,7 @@ dependencies:
   flutter_styled_toast: ^2.2.1
   intl: ^0.18.1
   http: ^1.2.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
       - gambar/movie4.jpg
       - gambar/movie5.jpg
       - gambar/movie6.jpg
+      - gambar/logo_news.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

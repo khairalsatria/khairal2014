@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final modelRegister = modelRegisterFromJson(jsonString);
+
 import 'dart:convert';
 
 ModelRegister modelRegisterFromJson(String str) => ModelRegister.fromJson(json.decode(str));
@@ -19,7 +23,7 @@ class ModelRegister {
   );
 
   Map<String, dynamic> toJson() => {
-    "value": value,
-    "message": message,
+  "value": value,
+  "message":message,
   };
 }

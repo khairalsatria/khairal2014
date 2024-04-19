@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final modelBerita = modelBeritaFromJson(jsonString);
+
 import 'dart:convert';
 
 ModelBerita modelBeritaFromJson(String str) => ModelBerita.fromJson(json.decode(str));
@@ -31,31 +35,27 @@ class ModelBerita {
 class Datum {
   String id;
   String judul;
-  String isiBerita;
-  String gambarBerita;
-  DateTime tglBerita;
+  String berita;
+  String gambar;
 
   Datum({
     required this.id,
     required this.judul,
-    required this.isiBerita,
-    required this.gambarBerita,
-    required this.tglBerita,
+    required this.berita,
+    required this.gambar,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     judul: json["judul"],
-    isiBerita: json["isi_berita"],
-    gambarBerita: json["gambar_berita"],
-    tglBerita: DateTime.parse(json["tgl_berita"]),
+    berita: json["berita"],
+    gambar: json["gambar"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "judul": judul,
-    "isi_berita": isiBerita,
-    "gambar_berita": gambarBerita,
-    "tgl_berita": tglBerita.toIso8601String(),
+  "id": id,
+  "judul": judul,
+  "berita": berita,
+  "gambar":gambar,
   };
 }

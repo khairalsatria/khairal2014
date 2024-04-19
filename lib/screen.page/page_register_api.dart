@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:khairal2014/model/model_register.dart';
 import 'package:khairal2014/screen.page/page_login_api.dart';
+import 'package:http/http.dart' as http;
 
 class PageRegisterApi extends StatefulWidget {
   const PageRegisterApi({super.key});
@@ -18,6 +20,68 @@ class _PageRegisterApiState extends State<PageRegisterApi> {
 
   //validasi form
   GlobalKey<FormState> keyForm= GlobalKey<FormState>();
+
+  //proses untuk hit api
+  bool isLoading = false;
+  Future<ModelRegister?> registerAccount() async{
+    //handle error
+    try{
+      setState(() {
+        isLoading = true;
+      });
+
+      http.Response response = await http.post(Uri.parse('http://192.168.1.4:8080/beritaDb/register.php'),
+          body: {
+            "username": txtUsername.text,
+            "password": txtPassword.text,
+            "fullname": txtFullName.text,
+            "email": txtEmail.text,
+          }
+      );
+      ModelRegister data = modelRegisterFromJson(response.body);
+      //cek kondisi
+      if(data.value == 1){
+        //kondisi ketika berhasil register
+        setState(() {
+          isLoading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${data.message}'))
+          );
+
+          //pindah ke page login
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)
+          => PageLoginApi()
+          ), (route) => false);
+
+        });
+      }else if(data.value == 2){
+        //kondisi akun sudah ada
+        setState(() {
+          isLoading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${data.message}'))
+          );
+        });
+      }else{
+        //gagal
+        setState(() {
+          isLoading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${data.message}'))
+          );
+        });
+      }
+
+    }catch (e){
+      setState(() {
+        //munculkan error
+        isLoading = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString()))
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,19 +157,23 @@ class _PageRegisterApiState extends State<PageRegisterApi> {
                 ),
 
                 SizedBox(height: 15,),
-                MaterialButton(onPressed: (){
-                  //cara get data dari text form field
-                  setState(() {
-                    // String username = txtUsername.text;
-                    // String pwd = txtPassword.text;
-                    //
-                    // print('Hasil login: ${username} dan pwd = ${pwd}');
-                  });
+                //proses cek loading
+                Center( child: isLoading ? Center(
+                  child: CircularProgressIndicator(),
+                ) : MaterialButton(onPressed: (){
+
+                  //cek validasi form ada kosong atau tidak
+                  if(keyForm.currentState?.validate() == true){
+                    setState(() {
+                      registerAccount();
+                    });
+                  }
+
                 },
                   child: Text('Register'),
                   color: Colors.green,
                   textColor: Colors.white,
-                )
+                ))
               ],
             ),
           ),
