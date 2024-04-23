@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:khairal2014/lat_screen.page/lat_page_login_api.dart";
+import "package:khairal2014/lat_screen.page/lat_page_profile.dart";
 import "package:khairal2014/utils/session_manager.dart";
 import "../lat_model/model_berita.dart";
 import 'package:http/http.dart' as http;
@@ -12,7 +13,7 @@ class DetailBerita extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Berita"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.cyan,
       ),
       body: ListView(
         children: [
@@ -21,7 +22,7 @@ class DetailBerita extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                "http://192.168.100.238/edukasi_server/gambar_berita/${data?.gambar}",
+                "http://10.127.204.228/edukasi/gambar_berita/${data?.gambar}",
                 fit: BoxFit.fill,
               ),
             ),
@@ -42,7 +43,7 @@ class DetailBerita extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(right: 16, bottom: 16, left: 16),
             child: Text(
-              data?.berita?? "",
+              data?.judul?? "",
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
               textAlign: TextAlign.justify,
             ),
@@ -86,7 +87,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
     try {
       // Berhasil
       http.Response response = await http.get(
-        Uri.parse("http://192.168.100.238/edukasi_server/getBerita.php"),
+        Uri.parse("http://10.127.204.228/edukasi/getBerita.php"),
       );
 
       return modelBeritaFromJson(response.body).data;
@@ -104,7 +105,13 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
         title: Text('Aplikasi Berita'),
         backgroundColor: Colors.cyan,
         actions: [
-          TextButton(onPressed: () {}, child: Text('Hi ... ${session.userName}')),
+          TextButton(onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PageProfileUser()
+                ));
+          }, child: Text('Hi ... ${session.userName}')),
           // Logout
           IconButton(
             onPressed: () {
@@ -136,7 +143,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
                   element.judul!
                       .toLowerCase()
                       .contains(value.toLowerCase()) ||
-                      element.berita!
+                      element.judul!
                           .toLowerCase()
                           .contains(value.toLowerCase()))
                       .toList();
@@ -185,7 +192,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
                                     padding: EdgeInsets.all(4),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network('http://192.168.100.238/edukasi_server/gambar_berita/${data.gambar}',
+                                      child: Image.network('http://10.127.204.228/edukasi/gambar_berita/${data.gambar}',
                                         fit: BoxFit.fill,
                                       ),
                                     )
@@ -200,7 +207,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    '${data.berita}',
+                                    '${data.judul}',
                                     maxLines: 2,
                                     style: TextStyle(
                                       fontSize: 12,

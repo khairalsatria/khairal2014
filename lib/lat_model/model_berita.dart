@@ -35,27 +35,35 @@ class ModelBerita {
 class Datum {
   String id;
   String judul;
-  String berita;
+  String konten;
   String gambar;
+  DateTime createdAt;
+  DateTime updatedAt;
 
   Datum({
     required this.id,
     required this.judul,
-    required this.berita,
+    required this.konten,
     required this.gambar,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     judul: json["judul"],
-    berita: json["berita"],
+    konten: json["konten"],
     gambar: json["gambar"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
-  "id": id,
-  "judul": judul,
-  "berita": berita,
-  "gambar":gambar,
+    "id": id,
+    "judul": judul,
+    "konten": konten,
+    "gambar": gambar,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
   };
 }

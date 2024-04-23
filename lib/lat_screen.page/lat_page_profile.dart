@@ -34,6 +34,10 @@ class _PageProfileUserState extends State<PageProfileUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Text('Profile'),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -50,7 +54,7 @@ class _PageProfileUserState extends State<PageProfileUser> {
                 SizedBox(
                   height: 10,
                 ),
-                Text('${session.Nama}',
+                Text('${session.userName}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20
@@ -58,24 +62,24 @@ class _PageProfileUserState extends State<PageProfileUser> {
                 SizedBox(
                   height: 10,
                 ),
-                Text('Username : ${session.userName}'),
-                Text('Email : ${session.email}'),
-                Text('No HP : ${session.nohp}'),
+                // Text('Username : ${session.userName}'),
+                // Text('Email : ${session.email}'),
+                // Text('No HP : ${session.nohp}'),
                 SizedBox(
                   height: 10,
                 ),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(width: 1, color: Colors.blueGrey)),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PageEditProfile()));
-                  },
-                  child: Text('Edit Profile'),
-                ),
+                // MaterialButton(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //       side: const BorderSide(width: 1, color: Colors.blueGrey)),
+                //   onPressed: () {
+                //     Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //             builder: (context) => PageEditProfile()));
+                //   },
+                //   child: Text('Edit Profile'),
+
               ],
             ),
           ),

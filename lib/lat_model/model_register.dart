@@ -23,7 +23,7 @@ class ModelRegister {
   );
 
   Map<String, dynamic> toJson() => {
-  "value": value,
-  "message":message,
+    "value": value,
+    "message": message,
   };
 }

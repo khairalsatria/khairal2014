@@ -12,14 +12,14 @@ class ModelLogin {
   int value;
   String message;
   String username;
-  String nama;
+  String fullname;
   String id;
 
   ModelLogin({
     required this.value,
     required this.message,
     required this.username,
-    required this.nama,
+    required this.fullname,
     required this.id,
   });
 
@@ -27,15 +27,15 @@ class ModelLogin {
     value: json["value"],
     message: json["message"],
     username: json["username"],
-    nama: json["nama"],
+    fullname: json["fullname"],
     id: json["id"],
   );
 
   Map<String, dynamic> toJson() => {
-  "value": value,
-  "message": message,
-  "username": username,
-  "nama": nama,
-  "id":id,
+    "value": value,
+    "message": message,
+    "username": username,
+    "fullname": fullname,
+    "id": id,
   };
 }
