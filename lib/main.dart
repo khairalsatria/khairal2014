@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:khairal2014/lat11mei_khairal/bar_bottom.dart';
+import 'package:khairal2014/lat11mei_khairal/home.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_list_berita.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_navbottom.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_profile.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashScreen(), debugShowCheckedModeBanner: false,
+      home:  BottomBar(), debugShowCheckedModeBanner: false,
     );
   }
 }

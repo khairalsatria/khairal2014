@@ -75,6 +75,19 @@ flutter:
       - gambar/movie6.jpg
       - gambar/logo_news.png
       - gambar/logo_google.png
+      - gambar/iklan.png
+      - gambar/promo.png
+      - gambar/promo2.png
+      - gambar/blogs.png
+      - gambar/blogs2.png
+      - gambar/category1.png
+      - gambar/category2.png
+      - gambar/category3.png
+      - gambar/category4.png
+      - gambar/category5.png
+      - gambar/category6.png
+      - gambar/category7.png
+      - gambar/category8.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
