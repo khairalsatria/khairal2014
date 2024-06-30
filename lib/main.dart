@@ -4,6 +4,7 @@ import 'package:khairal2014/lat11mei_khairal/home.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_list_berita.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_navbottom.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_profile.dart';
+import 'package:khairal2014/lat_screen.page/lat_page_register_api.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_search.dart';
 import 'package:khairal2014/lat_screen.page/latihansatu2014.dart';
 import 'package:khairal2014/screen.page/page_beranda.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  BottomBar(), debugShowCheckedModeBanner: false,
+      home:  LatPageRegisterApi(), debugShowCheckedModeBanner: false,
     );
   }
 }

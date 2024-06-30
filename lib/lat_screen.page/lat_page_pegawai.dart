@@ -23,7 +23,7 @@ class _PageListPegawaiState extends State<PageListPegawai> {
   Future<List<Datum>> getPegawai() async {
     try {
       final response = await http
-          .get(Uri.parse("http://192.168.100.238/edukasi_server/getPegawai.php"));
+          .get(Uri.parse("http://192.168.1.29/edukasi_server/getPegawai.php"));
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
@@ -57,7 +57,7 @@ class _PageListPegawaiState extends State<PageListPegawai> {
 
   Future<void> deletePegawai(String id) async {
     var url = Uri.parse(
-        "http://192.168.100.238/edukasi_server/deletePegawai.php?id=$id");
+        "http://192.168.1.29/edukasi_server/deletePegawai.php?id=$id");
 
     try {
       var response = await http.delete(
@@ -253,7 +253,7 @@ class _PageListPegawaiState extends State<PageListPegawai> {
                                                           // Kirim request untuk menghapus data karyawan
                                                           http.post(
                                                             Uri.parse(
-                                                                'http://192.168.100.238/edukasi_server/deletePegawai.php'),
+                                                                'http://192.168.1.29/edukasi_server/deletePegawai.php'),
                                                             body: {
                                                               'id': entry.value.id
                                                                   .toString()

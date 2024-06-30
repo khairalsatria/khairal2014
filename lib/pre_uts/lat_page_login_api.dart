@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:khairal2014/lat_model/model_login.dart';
+import 'package:khairal2014/lat_model//model_login.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_list_berita.dart';
-import 'package:khairal2014/lat_screen.page/lat_page_navbottom.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_register_api.dart';
 import 'package:khairal2014/utils/session_manager.dart';
 
@@ -38,7 +37,7 @@ class _LatPageLoginApiState extends State<LatPageLoginApi> {
       setState(() {
         isLoading = true;
       });
-      http.Response response = await http.post(Uri.parse('http://192.168.1.29/edukasi/login.php'),
+      http.Response response = await http.post(Uri.parse('http://192.168.18.20/edukasi/login.php'),
           body: {
             "username":txtUsername.text,
             "password":txtPassword.text,
@@ -57,7 +56,7 @@ class _LatPageLoginApiState extends State<LatPageLoginApi> {
 
           //pindah ke page login
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context)
-          => LatPageNavBottom()
+          => LatPageListBerita()
           ), (route) => false);
 
         });

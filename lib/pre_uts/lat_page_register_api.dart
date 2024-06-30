@@ -1,4 +1,4 @@
-import 'package:khairal2014/lat_model/model_register.dart';
+import 'package:khairal2014/lat_model//model_register.dart';
 import 'package:khairal2014/lat_screen.page/lat_page_login_api.dart';
 
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class _LatPageRegisterApiState extends State<LatPageRegisterApi> {
         isLoading = true;
       });
       http.Response response = await http.post(
-        Uri.parse("http://192.168.1.29/edukasi/register.php"),
+        Uri.parse("http://192.168.18.20/edukasi/register.php"),
         body: {
           "fullname": txtFullname.text,
           "username": txtUsername.text,

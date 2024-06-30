@@ -175,7 +175,7 @@ class _PageUpdatePegawaiState extends State<PageUpdatePegawai> {
                       if (keyForm.currentState?.validate() == true) {
                         // Kirim data perubahan ke server
                         http.post(
-                          Uri.parse('http://192.168.100.238/edukasi_server/updatePegawai.php'),
+                          Uri.parse('http://192.168.1.29/edukasi_server/updatePegawai.php'),
                           body: {
                             'id': widget.data.id.toString(),
                             'nama': txtNama.text,

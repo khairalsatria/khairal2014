@@ -56,7 +56,7 @@ class _PageEditProfileState extends State<PageEditProfile> {
       });
 
       http.Response response = await http.post(
-          Uri.parse('http://192.168.100.238/edukasi_server/updateUser.php'),
+          Uri.parse('http://192.168.1.29/edukasi_server/updateUser.php'),
           body: {
             "username": txtUsername.text,
             "email": txtEmail.text,

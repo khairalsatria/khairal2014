@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:khairal2014/lat_screen.page/lat_page_login_api.dart";
 import "package:khairal2014/lat_screen.page/lat_page_profile.dart";
 import "package:khairal2014/utils/session_manager.dart";
-import "../lat_model/model_berita.dart";
+import "../lat_model//model_berita.dart";
 import 'package:http/http.dart' as http;
 
 class DetailBerita extends StatelessWidget {
@@ -22,7 +22,7 @@ class DetailBerita extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                "http://192.168.1.29/edukasi/gambar_berita/${data?.gambar}",
+                "http://192.168.18.20/edukasi/gambar_berita/${data?.gambar}",
                 fit: BoxFit.fill,
               ),
             ),
@@ -87,7 +87,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
     try {
       // Berhasil
       http.Response response = await http.get(
-        Uri.parse("http://192.168.1.29/edukasi/getBerita.php"),
+        Uri.parse("http://192.168.18.20/edukasi/getBerita.php"),
       );
 
       return modelBeritaFromJson(response.body).data;
@@ -192,7 +192,7 @@ class _LatPageListBeritaState extends State<LatPageListBerita> {
                                     padding: EdgeInsets.all(4),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network('http://192.168.1.29/edukasi/gambar_berita/${data.gambar}',
+                                      child: Image.network('http://192.168.18.20/edukasi/gambar_berita/${data.gambar}',
                                         fit: BoxFit.fill,
                                       ),
                                     )
